@@ -1,1 +1,1 @@
-# CoolgeniousTech
+# Coolgenius Tech
