@@ -1,0 +1,12 @@
+---
+layout: default
+---
+<section style="padding: 8rem 4vw 6rem; position: relative;">
+  <div style="max-width: 800px; margin: 0 auto;">
+    <div class="section-label">{{ page.label | default: page.title }}</div>
+    <h1 class="section-title">{{ page.title }}</h1>
+    <div style="color: var(--text-mid); font-size: .95rem; line-height: 1.8;">
+      {{ content }}
+    </div>
+  </div>
+</section>
