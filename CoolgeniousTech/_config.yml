@@ -8,6 +8,7 @@ url: ""
 
 plugins:
   - jekyll-feed
+  - jekyll-seo-tag
 
 exclude:
   - Gemfile

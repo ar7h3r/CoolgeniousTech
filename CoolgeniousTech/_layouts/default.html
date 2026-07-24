@@ -5,7 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{{ page.title | default: site.title }}</title>
   <meta name="description" content="{{ page.description | default: site.description }}" />
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Syne:wght@400;500;600&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet" />
+  {% seo %}
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}" />
 </head>
 <body>
@@ -18,80 +21,95 @@
 
   <nav id="nav">
     <a href="{{ '/' | relative_url }}" class="logo">
-      <svg class="logo-svg logo-glow" width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <polygon class="hex" points="21,3 37,12 37,30 21,39 5,30 5,12" stroke="#00c8ff" stroke-width="1.5" fill="none"/>
-        <polygon class="inner" points="21,10 31,16 31,26 21,32 11,26 11,16" stroke="#00c8ff" stroke-width="1" fill="rgba(0,200,255,0.06)"/>
-        <circle class="orbit" cx="21" cy="4" r="2" fill="#00ff88"/>
-        <text class="dot" x="21" y="24.5" text-anchor="middle" font-family="Orbitron,monospace" font-size="10" font-weight="900" fill="#00c8ff">C</text>
-        <line x1="21" y1="3" x2="21" y2="7" stroke="#00ff88" stroke-width="1.5" opacity=".6"/>
-        <line x1="5" y1="12" x2="8.6" y2="14" stroke="#00ff88" stroke-width="1.5" opacity=".6"/>
-        <line x1="5" y1="30" x2="8.6" y2="28" stroke="#00ff88" stroke-width="1.5" opacity=".6"/>
+      <svg class="logo-svg logo-glow" viewBox="0 0 36 40" fill="none" xmlns="http://www.w3.org/2000/svg" width="38" height="42">
+        <path d="M18 2L34 10V22C34 30.837 26.837 38 18 38C9.163 38 2 30.837 2 22V10L18 2Z" stroke="url(#shield-grad)" stroke-width="1.8" fill="rgba(0,200,255,0.06)"/>
+        <path d="M12 21L16 25L24 17" stroke="#00c8ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="18" cy="21" r="6" stroke="rgba(0,200,255,0.25)" stroke-width="1"/>
+        <defs>
+          <linearGradient id="shield-grad" x1="2" y1="2" x2="34" y2="38" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#00c8ff"/>
+            <stop offset="100%" stop-color="#7b2fff"/>
+          </linearGradient>
+        </defs>
       </svg>
-      <span class="logo-text">CYBER<span>TO</span></span>
+      <div class="logo-text-wrap">
+        <div class="logo-text">CYBER<span>TO</span><span class="logo-dot">.</span></div>
+        <div class="logo-sub">SOLUTIONS</div>
+      </div>
+      <div class="logo-status">
+        <span>SYSTEMS</span>
+        <span>SECURE</span>
+      </div>
     </a>
 
-    <ul class="nav-links">
-      <li><a href="{{ '/#services' | relative_url }}">Services</a></li>
-      <li><a href="{{ '/#features' | relative_url }}">Features</a></li>
-      <li><a href="{{ '/#about' | relative_url }}">About</a></li>
-      <li><a href="{{ '/#contact' | relative_url }}">Contact</a></li>
-    </ul>
+    <div class="nav-links">
+      <a href="{{ '/#services' | relative_url }}">Services</a>
+      <a href="{{ '/#features' | relative_url }}">Features</a>
+      <a href="{{ '/#about' | relative_url }}">About</a>
+      <a href="{{ '/#contact' | relative_url }}">Contact</a>
+    </div>
 
-    <a href="{{ '/#contact' | relative_url }}" class="nav-cta">Get Started</a>
+    <a href="{{ '/#contact' | relative_url }}" class="nav-cta">Get Protected</a>
+
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
+
+  <div class="mobile-overlay" id="mobile-overlay"></div>
+  <div class="mobile-menu" id="mobile-menu">
+    <button class="mobile-close" id="mobile-close" aria-label="Close">&times;</button>
+    <a href="{{ '/#services' | relative_url }}" class="mobile-link">Services</a>
+    <a href="{{ '/#features' | relative_url }}" class="mobile-link">Features</a>
+    <a href="{{ '/#about' | relative_url }}" class="mobile-link">About</a>
+    <a href="{{ '/#contact' | relative_url }}" class="mobile-link">Contact</a>
+    <a href="{{ '/#contact' | relative_url }}" class="btn-primary mobile-cta">Get Protected</a>
+  </div>
 
   {{ content }}
 
   <footer>
-    <div class="footer-top">
+    <div class="footer-grid">
       <div class="footer-brand">
-        <a href="{{ '/' | relative_url }}" class="logo" style="margin-bottom:.5rem;">
-          <svg class="logo-glow" width="32" height="32" viewBox="0 0 42 42" fill="none">
-            <polygon points="21,3 37,12 37,30 21,39 5,30 5,12" stroke="#00c8ff" stroke-width="1.5" fill="rgba(0,200,255,.05)"/>
-            <polygon points="21,10 31,16 31,26 21,32 11,26 11,16" stroke="#00c8ff" stroke-width="1" fill="rgba(0,200,255,.06)"/>
-            <text x="21" y="24.5" text-anchor="middle" font-family="Orbitron,monospace" font-size="10" font-weight="900" fill="#00c8ff">C</text>
-          </svg>
-          <span class="logo-text" style="font-size:1rem">CYBER<span>TO</span></span>
-        </a>
-        <p>Advanced cybersecurity solutions for the digital age. Protecting businesses from the threats of today and tomorrow.</p>
+        <div class="footer-logo">CYBER<span>TO</span><span class="logo-dot">.</span></div>
+        <p>Enterprise-grade cybersecurity solutions for modern businesses. AI-powered threat detection and 24/7 expert monitoring.</p>
+        <div class="footer-socials">
+          <a href="#" aria-label="Twitter">𝕏</a>
+          <a href="#" aria-label="LinkedIn">in</a>
+          <a href="#" aria-label="GitHub">GH</a>
+        </div>
       </div>
       <div class="footer-col">
         <h4>Services</h4>
-        <ul>
-          <li><a href="{{ '/#services' | relative_url }}">Threat Detection</a></li>
-          <li><a href="{{ '/#services' | relative_url }}">Data Protection</a></li>
-          <li><a href="{{ '/#services' | relative_url }}">Security Monitoring</a></li>
-          <li><a href="{{ '/#services' | relative_url }}">Vulnerability Assessment</a></li>
-          <li><a href="{{ '/#services' | relative_url }}">Penetration Testing</a></li>
-          <li><a href="{{ '/#services' | relative_url }}">Incident Response</a></li>
-        </ul>
+        <a href="{{ '/#services' | relative_url }}">Threat Detection</a>
+        <a href="{{ '/#services' | relative_url }}">Data Protection</a>
+        <a href="{{ '/#services' | relative_url }}">24/7 Monitoring</a>
+        <a href="{{ '/#services' | relative_url }}">Penetration Testing</a>
+        <a href="{{ '/#services' | relative_url }}">Incident Response</a>
       </div>
       <div class="footer-col">
         <h4>Company</h4>
-        <ul>
-          <li><a href="{{ '/#about' | relative_url }}">About Us</a></li>
-          <li><a href="#">Careers</a></li>
-          <li><a href="#">Blog</a></li>
-          <li><a href="{{ '/#contact' | relative_url }}">Contact</a></li>
-        </ul>
+        <a href="{{ '/about' | relative_url }}">About Us</a>
+        <a href="#">Careers</a>
+        <a href="#">Blog</a>
+        <a href="{{ '/#contact' | relative_url }}">Contact</a>
       </div>
       <div class="footer-col">
-        <h4>Legal</h4>
-        <ul>
-          <li><a href="#">Privacy Policy</a></li>
-          <li><a href="#">Terms of Service</a></li>
-          <li><a href="#">Security</a></li>
-          <li><a href="#">Compliance</a></li>
-        </ul>
+        <h4>Contact</h4>
+        <a href="mailto:info@cybertosolutions.tech">info@cybertosolutions.tech</a>
+        <a href="tel:+27797828538">+27 79 782 8538</a>
+        <a href="#">Security Hotline 24/7</a>
       </div>
     </div>
     <div class="footer-bottom">
-      <span class="footer-copy">© 2025 CYBERTO SOLUTIONS. ALL RIGHTS RESERVED.</span>
-      <span class="footer-copy" style="color:#00c8ff;opacity:.6;">[ SYSTEMS SECURE ]</span>
+      <span>&copy; {{ 'now' | date: "%Y" }} Cyberto Solutions. All rights reserved.</span>
+      <span style="color:var(--cyan);opacity:.6;">[ SOC 2 &nbsp;|&nbsp; ISO 27001 &nbsp;|&nbsp; GDPR ]</span>
     </div>
   </footer>
 
 </div>
+
+<button class="scroll-top" id="scroll-top" aria-label="Back to top">&#8679;</button>
 
 <script src="{{ '/assets/js/main.js' | relative_url }}"></script>
 </body>
