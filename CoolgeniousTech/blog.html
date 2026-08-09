@@ -1,0 +1,64 @@
+---
+layout: default
+title: Security Blog — Cyberto Solutions
+description: Expert insights, guides, and news on cybersecurity, threat intelligence, and compliance from the Cyberto Solutions team.
+---
+
+<section class="page-hero">
+  <div class="scanlines"></div>
+  <div class="hero-inner page-hero-inner">
+    <div class="section-label">Knowledge Base</div>
+    <h1 class="section-title" style="font-size:clamp(2rem,5vw,3.8rem);margin-bottom:1rem;">
+      Security<br/>Intelligence Hub
+    </h1>
+    <p style="color:var(--text-mid);font-size:1rem;line-height:1.75;max-width:480px;">
+      Expert guides, threat analysis, and compliance insights from our security team.
+    </p>
+  </div>
+</section>
+
+<section class="blog-section">
+  {% if site.posts.size > 0 %}
+  <div class="blog-grid">
+    {% for post in site.posts %}
+    <article class="blog-card">
+      <div class="blog-card-top">
+        <span class="blog-tag">{{ post.category | default: "Security" }}</span>
+        <span class="blog-read-time">{{ post.read_time | default: "5" }} min read</span>
+      </div>
+      <h2 class="blog-card-title">
+        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+      </h2>
+      <p class="blog-card-excerpt">{{ post.excerpt | strip_html | truncate: 140 }}</p>
+      <div class="blog-card-footer">
+        <time class="blog-date">{{ post.date | date: "%b %-d, %Y" }}</time>
+        <a href="{{ post.url | relative_url }}" class="blog-read-more">Read More →</a>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div style="text-align:center;padding:4rem 0;color:var(--text-muted);">
+    <p style="font-family:'JetBrains Mono',monospace;font-size:.8rem;letter-spacing:.1em;">[ NO POSTS YET ]</p>
+    <p style="margin-top:.5rem;">Check back soon for security insights and guides.</p>
+  </div>
+  {% endif %}
+</section>
+
+<!-- Newsletter signup -->
+<section class="newsletter-section">
+  <div class="newsletter-inner">
+    <div class="section-label" style="justify-content:center;">Stay Informed</div>
+    <h2 class="section-title" style="text-align:center;margin-bottom:.8rem;">Threat Intelligence Digest</h2>
+    <p style="color:var(--text-mid);text-align:center;max-width:400px;margin:0 auto 2rem;font-size:.95rem;line-height:1.7;">
+      Weekly threat briefings, zero-day alerts, and compliance updates — directly in your inbox.
+    </p>
+    <form class="newsletter-form" id="newsletter-form" onsubmit="handleNewsletter(event)">
+      <div class="newsletter-row">
+        <input type="email" name="email" placeholder="your@company.com" required class="newsletter-input" />
+        <button type="submit" class="btn-primary">Subscribe →</button>
+      </div>
+      <p class="newsletter-note">No spam. Unsubscribe anytime. &nbsp;<span style="color:var(--green);">✓</span> SOC 2 secured</p>
+    </form>
+  </div>
+</section>
