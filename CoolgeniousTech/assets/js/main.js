@@ -257,7 +257,7 @@ document.querySelectorAll('.about-num').forEach((c, i) => { c.style.transitionDe
 
 // Formspree contact form
 // To activate: create a free account at formspree.io, create a form, paste your endpoint below.
-const FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID';
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mgawakwy';
 
 async function submitToFormspree(form, endpoint) {
   const response = await fetch(endpoint, {
