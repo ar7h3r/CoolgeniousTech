@@ -1,5 +1,7 @@
 {
   "buildCommand": "cd CoolgeniousTech && bundle install && bundle exec jekyll build",
   "outputDirectory": "CoolgeniousTech/_site",
-  "installCommand": "echo 'dependencies handled in buildCommand'"
+  "installCommand": "echo 'dependencies handled in buildCommand'",
+  "cleanUrls": true,
+  "trailingSlash": false
 }
