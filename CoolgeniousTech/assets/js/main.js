@@ -36,7 +36,6 @@ window.addEventListener('scroll', () => {
   if (scrollTopBtn) scrollTopBtn.classList.toggle('visible', scrollY > 400);
 });
 
-// Scroll to top
 if (scrollTopBtn) {
   scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 }
@@ -64,6 +63,25 @@ if (ham) ham.addEventListener('click', openMenu);
 if (closeBtn) closeBtn.addEventListener('click', closeMenu);
 if (overlay) overlay.addEventListener('click', closeMenu);
 document.querySelectorAll('.mobile-link').forEach(a => a.addEventListener('click', closeMenu));
+
+// Cookie consent
+(function () {
+  const banner = document.getElementById('cookie-banner');
+  if (!banner) return;
+  if (!localStorage.getItem('cookie-consent')) {
+    setTimeout(() => banner.classList.add('visible'), 1500);
+  }
+  const accept = document.getElementById('accept-cookies');
+  const decline = document.getElementById('decline-cookies');
+  if (accept) accept.addEventListener('click', () => {
+    localStorage.setItem('cookie-consent', 'accepted');
+    banner.classList.remove('visible');
+  });
+  if (decline) decline.addEventListener('click', () => {
+    localStorage.setItem('cookie-consent', 'declined');
+    banner.classList.remove('visible');
+  });
+})();
 
 // Canvas particle network with mouse repulsion
 const canvas = document.getElementById('canvas-bg');
@@ -205,6 +223,16 @@ function buildTerminal() {
   });
 }
 
+// FAQ accordion
+document.querySelectorAll('.faq-question').forEach(q => {
+  q.addEventListener('click', () => {
+    const item = q.parentElement;
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  });
+});
+
 // Intersection Observer
 const observer = new IntersectionObserver(entries => {
   entries.forEach(e => {
@@ -227,17 +255,119 @@ document.querySelectorAll('.service-card').forEach((c, i) => { c.style.transitio
 document.querySelectorAll('.feature-item').forEach((c, i) => { c.style.transitionDelay = `${i * .1}s`; });
 document.querySelectorAll('.about-num').forEach((c, i) => { c.style.transitionDelay = `${i * .15}s`; });
 
-// Contact form
+// Formspree contact form
+// To activate: create a free account at formspree.io, create a form, paste your endpoint below.
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID';
+
+async function submitToFormspree(form, endpoint) {
+  const response = await fetch(endpoint, {
+    method: 'POST',
+    body: new FormData(form),
+    headers: { 'Accept': 'application/json' }
+  });
+  if (!response.ok) throw new Error('Submission failed');
+}
+
 function handleSubmit(e) {
   e.preventDefault();
-  const btn = e.target.querySelector('button[type="submit"]');
-  btn.textContent = 'Message Sent ✓';
-  btn.style.background = 'var(--green)';
-  btn.style.color = 'var(--bg)';
-  setTimeout(() => {
-    btn.textContent = 'Send Message →';
-    btn.style.background = '';
-    btn.style.color = '';
-    e.target.reset();
-  }, 3000);
+  const form = e.target;
+  const btn = form.querySelector('button[type="submit"]');
+  const orig = btn.textContent;
+  btn.textContent = 'Sending…';
+  btn.disabled = true;
+
+  submitToFormspree(form, FORMSPREE_ENDPOINT)
+    .then(() => {
+      btn.textContent = 'Message Sent ✓';
+      btn.style.background = 'var(--green)';
+      btn.style.color = 'var(--bg)';
+      form.reset();
+      setTimeout(() => {
+        btn.textContent = orig;
+        btn.style.background = '';
+        btn.style.color = '';
+        btn.disabled = false;
+      }, 3000);
+    })
+    .catch(() => {
+      btn.textContent = 'Failed — Try Again';
+      btn.style.background = 'var(--red)';
+      btn.style.color = '#fff';
+      btn.disabled = false;
+      setTimeout(() => {
+        btn.textContent = orig;
+        btn.style.background = '';
+        btn.style.color = '';
+      }, 3000);
+    });
+}
+
+// Quote form (pricing page)
+function handleQuoteSubmit(e) {
+  e.preventDefault();
+  const form = e.target;
+  const btn = form.querySelector('button[type="submit"]');
+  const orig = btn.textContent;
+  btn.textContent = 'Sending…';
+  btn.disabled = true;
+
+  submitToFormspree(form, FORMSPREE_ENDPOINT)
+    .then(() => {
+      btn.textContent = 'Request Sent ✓';
+      btn.style.background = 'var(--green)';
+      btn.style.color = 'var(--bg)';
+      form.reset();
+      setTimeout(() => {
+        btn.textContent = orig;
+        btn.style.background = '';
+        btn.style.color = '';
+        btn.disabled = false;
+      }, 3000);
+    })
+    .catch(() => {
+      btn.textContent = 'Failed — Try Again';
+      btn.style.background = 'var(--red)';
+      btn.style.color = '#fff';
+      btn.disabled = false;
+      setTimeout(() => {
+        btn.textContent = orig;
+        btn.style.background = '';
+        btn.style.color = '';
+      }, 3000);
+    });
+}
+
+// Newsletter form
+function handleNewsletter(e) {
+  e.preventDefault();
+  const form = e.target;
+  const btn = form.querySelector('button[type="submit"]');
+  const orig = btn.textContent;
+  btn.textContent = 'Subscribing…';
+  btn.disabled = true;
+
+  submitToFormspree(form, FORMSPREE_ENDPOINT)
+    .then(() => {
+      btn.textContent = 'Subscribed ✓';
+      btn.style.background = 'var(--green)';
+      btn.style.color = 'var(--bg)';
+      form.reset();
+      setTimeout(() => {
+        btn.textContent = orig;
+        btn.style.background = '';
+        btn.style.color = '';
+        btn.disabled = false;
+      }, 3000);
+    })
+    .catch(() => {
+      btn.textContent = 'Failed — Try Again';
+      btn.style.background = 'var(--red)';
+      btn.style.color = '#fff';
+      btn.disabled = false;
+      setTimeout(() => {
+        btn.textContent = orig;
+        btn.style.background = '';
+        btn.style.color = '';
+      }, 3000);
+    });
 }

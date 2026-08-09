@@ -1,0 +1,29 @@
+---
+layout: default
+---
+
+<article class="post-article">
+  <div class="post-hero">
+    <div class="scanlines"></div>
+    <div class="post-hero-inner">
+      <div class="post-meta-top">
+        <span class="blog-tag">{{ page.category | default: "Security" }}</span>
+        <span class="blog-read-time">{{ page.read_time | default: "5" }} min read</span>
+      </div>
+      <h1 class="post-title">{{ page.title }}</h1>
+      <div class="post-byline">
+        <time>{{ page.date | date: "%B %-d, %Y" }}</time>
+        {% if page.author %}<span>by {{ page.author }}</span>{% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="post-body">
+    <div class="post-content">
+      {{ content }}
+    </div>
+    <div class="post-footer">
+      <a href="/blog" class="btn-ghost">&larr; Back to Blog</a>
+    </div>
+  </div>
+</article>
